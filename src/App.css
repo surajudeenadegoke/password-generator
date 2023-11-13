@@ -1,0 +1,65 @@
+.App {
+  min-height: 100vh;
+  background: rgb(62, 62, 138);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 30%;
+  background: #23235b;
+  border-radius: 10px;
+}
+.generator {
+  padding: 20px;
+}
+.generator-header {
+  text-align: center;
+  color: azure;
+  margin-bottom: 20px;
+}
+.generate-password {
+  background: rgb(0, 0, 0, 0.4);
+  padding: 30px 10px;
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+  margin-bottom: 20px;
+
+}
+.password {
+  font-size: 1.2rem;
+  /* background: white; */
+  width: 80%;
+  padding: 10px;
+}
+.copy-btn {
+  /* font-size: 2rem; */
+  background: #3d3bacd7;
+  color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height:40px;
+  padding: 0px 10px
+}
+.form-group {
+  margin-bottom: 20px;
+  color: rgb(141, 141, 24);
+  display:flex;
+  justify-content: space-between;
+}
+.generate-btn{
+  
+  background: #3d3bacd7;
+  border:none;
+  width:100%;
+  padding:15px 10px;
+  color:whitesmoke;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+
+}
