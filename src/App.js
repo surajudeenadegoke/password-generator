@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { numbers, lowerCase, upperCase, symbols } from "./characters";
 const App = () => {
-  const [password, setPassword] = useState("");
-  const [passwordLength, setPasswordLength] = useState("");
+  const [password, setPassword] = useState("deen4real");
+  const [passwordLength, setPasswordLength] = useState(20);
   const [includeUpperCase, setIncludeUpperCase] = useState(false);
   const [includeLowerCase, setIncludeLowerCase] = useState(false);
   const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
 
-  const handleGeneratePassword = () => {
+  const handleGeneratePassword = (e) => {
     let characterList = "";
     if (includeUpperCase) {
       characterList += upperCase;
@@ -22,22 +22,30 @@ const App = () => {
     if (includeSymbols) {
       characterList += symbols;
     }
-    
-    const generatePassword = ()=>{
-      console.log (passwordLength);
-      console.log (characterList.length);
-
-      let password = "";
-      for(let i=0; i<passwordLength; i++) {
-        let characterIndex = Math.round(Math.random() * characterList.length);
-        console.log(characterList.charAt(characterIndex));
-        password +=characterList.charAt(characterIndex);
-      }
-      return password
-    }
-    setPassword(generatePassword());
+    setPassword(generatePassword(characterList));
   };
-  console.log(password);
+
+  const generatePassword = (characterList) => {
+    let generatedPassword = "";
+    for (let i = 0; i < passwordLength; i++) {
+      let characterIndex = Math.round(Math.random() * characterList.length);
+      generatedPassword += characterList.charAt(characterIndex);
+    }
+    return generatedPassword;
+  };
+
+  const handleCopyPassword = () => {
+    const copyToClipboard = () => {
+      const newTextArea = document.createElement("textarea");
+      newTextArea.innerText = password;
+      document.body.appendChild(newTextArea);
+      newTextArea.select();
+      document.execCommand("copy");
+      newTextArea.remove();
+    };
+
+    copyToClipboard();
+  };
 
   return (
     <div className="App">
@@ -47,7 +55,7 @@ const App = () => {
           <div className="generate-password">
             <h3 className="password"> {password}</h3>
             <button className="copy-btn">
-              <i className="far fa-clipboard"></i>
+              <i className="far fa-clipboard" onClick={handleCopyPassword}></i>
             </button>
           </div>
           <div className="form-group">
@@ -103,7 +111,7 @@ const App = () => {
             />
           </div>
           <button className="generate-btn" onClick={handleGeneratePassword}>
-            Generate Button
+            Generate Password
           </button>
         </div>
       </div>
@@ -112,6 +120,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
