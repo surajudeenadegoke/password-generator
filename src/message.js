@@ -1,0 +1,1 @@
+export const COPY_SUCCESS = "message copied successfully";

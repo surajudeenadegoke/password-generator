@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { numbers, lowerCase, upperCase, symbols } from "./characters";
+
+import { COPY_SUCCESS } from "./message";
 const App = () => {
   const [password, setPassword] = useState("deen4real");
   const [passwordLength, setPasswordLength] = useState(20);
@@ -33,6 +37,18 @@ const App = () => {
     }
     return generatedPassword;
   };
+  const tester = (message) => {
+    toast(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleCopyPassword = () => {
     const copyToClipboard = () => {
@@ -45,6 +61,7 @@ const App = () => {
     };
 
     copyToClipboard();
+    tester(COPY_SUCCESS);
   };
 
   return (
@@ -113,6 +130,18 @@ const App = () => {
           <button className="generate-btn" onClick={handleGeneratePassword}>
             Generate Password
           </button>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </div>
       </div>
     </div>
