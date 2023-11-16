@@ -5,7 +5,7 @@ import { numbers, lowerCase, upperCase, symbols } from "./characters";
 
 import { COPY_SUCCESS } from "./message";
 const App = () => {
-  const [password, setPassword] = useState("deen4real");
+  const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(20);
   const [includeUpperCase, setIncludeUpperCase] = useState(false);
   const [includeLowerCase, setIncludeLowerCase] = useState(false);
@@ -13,6 +13,14 @@ const App = () => {
   const [includeSymbols, setIncludeSymbols] = useState(false);
 
   const handleGeneratePassword = (e) => {
+    if (
+      includeUpperCase === false &&
+      includeLowerCase === false &&
+      includeNumbers === false &&
+      includeSymbols === false
+    ) {
+      notify("You must include at least one character", true);
+    }
     let characterList = "";
     if (includeUpperCase) {
       characterList += upperCase;
@@ -37,17 +45,30 @@ const App = () => {
     }
     return generatedPassword;
   };
-  const tester = (message) => {
-    toast(message, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+  const notify = (message, hasError = false) => {
+    if (hasError) {
+      toast.error(message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast(message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const handleCopyPassword = () => {
@@ -59,9 +80,12 @@ const App = () => {
       document.execCommand("copy");
       newTextArea.remove();
     };
-
-    copyToClipboard();
-    tester(COPY_SUCCESS);
+    if (password === "") {
+      notify("Nothing to copy", true);
+    } else {
+      copyToClipboard();
+      notify(COPY_SUCCESS);
+    }
   };
 
   return (

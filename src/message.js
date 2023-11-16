@@ -1,1 +1,1 @@
-export const COPY_SUCCESS = "message copied successfully";
+export const COPY_SUCCESS = "password copied successfully";
