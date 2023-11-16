@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { numbers, lowerCase, upperCase, symbols } from "./characters";
-
+import { errorFunction, messageFunction, copyToClipboard } from "./helping";
 import { COPY_SUCCESS } from "./message";
+
 const App = () => {
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(20);
@@ -45,45 +46,16 @@ const App = () => {
     }
     return generatedPassword;
   };
+
   const notify = (message, hasError = false) => {
-    if (hasError) {
-      toast.error(message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } else {
-      toast(message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    hasError ? errorFunction(message) : messageFunction(message);
   };
 
   const handleCopyPassword = () => {
-    const copyToClipboard = () => {
-      const newTextArea = document.createElement("textarea");
-      newTextArea.innerText = password;
-      document.body.appendChild(newTextArea);
-      newTextArea.select();
-      document.execCommand("copy");
-      newTextArea.remove();
-    };
     if (password === "") {
       notify("Nothing to copy", true);
     } else {
-      copyToClipboard();
+      copyToClipboard(password);
       notify(COPY_SUCCESS);
     }
   };
